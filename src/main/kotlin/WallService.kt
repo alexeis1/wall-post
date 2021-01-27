@@ -1,6 +1,5 @@
 package ru.netology.lesson5
 
-import java.text.NumberFormat
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -38,6 +37,6 @@ object WallService {
      * Description функция clear удаляет все посты
      */
     fun clear(){
-        posts = emptyArray<Post>()   
+        posts = emptyArray<Post>()
     }
 }
