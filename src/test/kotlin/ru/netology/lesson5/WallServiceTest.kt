@@ -1,61 +1,61 @@
 package ru.netology.lesson5
 
 import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Test
 
 class WallServiceTest {
 
     @Test
     fun update_IdFound() {
-        WallService.clear()
-        val post1      = Post(id = 0, text = "text 1")
-        val postWithId = WallService.add(post1)
-        WallService.update(postWithId).apply {
-            Assert.assertTrue(this)
+        val service = WallService()
+        val postWithId = service.add(Post(id = 0, text = "text 1"))
+        service.update(postWithId).apply {
+            assertTrue(this)
         }
     }
 
     @Test
     fun update_IdNotFound() {
-        val post1      = Post(id = 0, text = "text 1")
-        val postWithId = WallService.add(post1)
-        //удаляем все посты, теперь update не найдет id
-        WallService.clear()
-        WallService.update(postWithId).apply {
-            Assert.assertFalse(this)
+        val service = WallService()
+        val post1   = Post(id = 0, text = "text 1")
+        service.add(post1)
+        service.update(post1).apply {
+            assertFalse(this)
         }
     }
 
     @Test
-    fun add_checkId() {
-        WallService.clear()
-        val post1      = Post(id = 0, text = "text 1")
-        val postWithId = WallService.add(post1)
-        Assert.assertNotEquals(0, postWithId)
+    fun add_checkIdNotZero() {
+        val service    = WallService()
+        val postWithId = service.add(Post(id = 0, text = "text 1"))
+        assertNotEquals(0, postWithId)
     }
 
+    @Test
+    fun add_checkAdded() {
+        val service = WallService()
+        service.add(Post(id = 0, text = "text 1"))
+        assertNotEquals(0, service.count())
+    }
     /**
      * Description тест проверяет что функция update обновила содержимое поля текст
      */
     @Test
     fun update_checkText() {
-        WallService.clear()
+        val service  = WallService()
+        //добавляем 2 поста, чтобы было среди чего искать
         val post1    = Post(id = 0, text = "text 1")
-        val post2    = Post(id = 0, text = "text 2")
-        val newPost1 = WallService.add(post1).copy(text = "new text1")
-        val newPost2 = WallService.add(post2).copy(text = "new text2")
-        val count = WallService.posts.count()
-        Assert.assertEquals(2, count)
-        
-        WallService.update(newPost1)
-        WallService.update(newPost2)
-        val fountPost1 = WallService.posts.find { it.id == newPost1.id }
-        val fountPost2 = WallService.posts.find { it.id == newPost2.id }
-
-        Assert.assertNotNull(fountPost1)
-        Assert.assertNotNull(fountPost2)
-        Assert.assertEquals(fountPost1!!.text, "new text1")
-        Assert.assertEquals(fountPost2!!.text, "new text2")
+        val post2    = Post()
+        val newPost1 = service.add(post1).copy(text = "new text1")
+                       service.add(post2)
+        //меняем текст в 1м посте
+        service.update(newPost1)
+        //находим этот пост и проверяем го содержимое
+        service.find { it.id == newPost1.id } .apply {
+            assertNotNull(this)
+            assertEquals(this!!.text, "new text1")
+        }
     }
 
 }
