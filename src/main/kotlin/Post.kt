@@ -7,43 +7,34 @@ package ru.netology.lesson5
 
 //Игнорируйте поля post_source, attachments, geo, copy_history
 data class Post(
-    val id             : Int,          //идентификатор записи.
-    val ownerId        : Int,          //идентификатор владельца стены, на которой размещена запись. В версиях API ниже 5.7 это поле называется to_id.
-    val fromId         : Int,          //идентификатор автора записи (от чьего имени опубликована запись).
-    val createdBy      : Int,          //идентификатор администратора, который опубликовал запись (возвращается только для сообществ при запросе с ключом доступа администратора). Возвращается в записях, опубликованных менее 24 часов назад.
-    val date           : Int,          //время публикации записи в формате unixtime.
-    val text           : String,       //текст записи.
-    val replyOwnerId   : Int,          //идентификатор владельца записи, в ответ на которую была оставлена текущая.
-    val replyPostId    : Int,          //идентификатор записи, в ответ на которую была оставлена текущая
-    val friendsOnly    : Boolean,      //true, если запись была создана с опцией «Только для друзей».
-    val comments       : CommentsDesc, //информация о комментариях к записи, объект с полями:
-    val copyright      : Copyright,    //источник материала
-    val likes          : Likes,        //информация о лайках к записи, объект с полями:
-    val reposts        : Reposts,      //информация о репостах записи («Рассказать друзьям»),
-    val views_count    : Int,          //информация о просмотрах записи (число записей)
-    val postType       : String,       //тип записи, может принимать следующие значения: post, copy, reply, postpone, suggest.
-    val signerId       : Int,       //идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем;
-    val canPin         : Boolean,   //информация о том, может ли текущий пользователь закрепить запись
-    val canDelete      : Boolean,   //информация о том, может ли текущий пользователь удалить запись
-    val canEdit        : Boolean,   //информация о том, может ли текущий пользователь редактировать запись
-    val isPinned       : Boolean,   //информация о том, что запись закреплена.
-    val markedAsAds    : Boolean,   //информация о том, содержит ли запись отметку "реклама"
-    val isFavorite     : Boolean,   //true, если объект добавлен в закладки у текущего пользователя.
-    val donut          : VkDonut,   //информация о записи VK Donut:
-    val postponedId    : Int        //идентификатор отложенной записи. Это поле возвращается тогда, когда запись стояла на таймере.
+    val id             : Int = 0,          //идентификатор записи.
+    val ownerId        : Int = 0,          //идентификатор владельца стены, на которой размещена запись. В версиях API ниже 5.7 это поле называется to_id.
+    val fromId         : Int = 0,          //идентификатор автора записи (от чьего имени опубликована запись).
+    val createdBy      : Int = 0,          //идентификатор администратора, который опубликовал запись (возвращается только для сообществ при запросе с ключом доступа администратора). Возвращается в записях, опубликованных менее 24 часов назад.
+    val date           : Int = 0,          //время публикации записи в формате unixtime.
+    val text           : String = "",      //текст записи.
+    val replyOwnerId   : Int = 0,          //идентификатор владельца записи, в ответ на которую была оставлена текущая.
+    val replyPostId    : Int = 0,          //идентификатор записи, в ответ на которую была оставлена текущая
+    val friendsOnly    : Boolean = false,  //true, если запись была создана с опцией «Только для друзей».
+    val comments       : CommentsDesc = CommentsDesc(), //информация о комментариях к записи, объект с полями:
+    val copyright      : Copyright    = Copyright(),    //источник материала
+    val likes          : Likes        = Likes(),        //информация о лайках к записи, объект с полями:
+    val reposts        : Reposts      = Reposts(),      //информация о репостах записи («Рассказать друзьям»),
+    val views_count    : Int = 0,             //информация о просмотрах записи (число записей)
+    val postType       : String = "",         //тип записи, может принимать следующие значения: post, copy, reply, postpone, suggest.
+    val signerId       : Int = 0,             //идентификатор автора, если запись была опубликована от имени сообщества и подписана пользователем;
+    val canPin         : Boolean = false,     //информация о том, может ли текущий пользователь закрепить запись
+    val canDelete      : Boolean = false,     //информация о том, может ли текущий пользователь удалить запись
+    val canEdit        : Boolean = false,     //информация о том, может ли текущий пользователь редактировать запись
+    val isPinned       : Boolean = false,     //информация о том, что запись закреплена.
+    val markedAsAds    : Boolean = false,     //информация о том, содержит ли запись отметку "реклама"
+    val isFavorite     : Boolean = false,     //true, если объект добавлен в закладки у текущего пользователя.
+    val donut          : VkDonut = VkDonut(), //информация о записи VK Donut:
+    val postponedId    : Int = 0              //идентификатор отложенной записи. Это поле возвращается тогда, когда запись стояла на таймере.
 ) {
 
 
 }
-/*
-    val postType       : String = "post"
-    fun set(value : String) {
-        if (setOf("post", "copy", "reply", "postpone", "suggest").contains(value))
-        {
-            postType = value
-        }
-    }
-*/
 
 /**
  * Description SourceType
@@ -63,11 +54,11 @@ enum class SourceType(value : String){
  * информация о записи VK Donut
  */
 data class VkDonut(
-    val isDonut            : Boolean,  // — запись доступна только платным подписчикам VK Donut;
-    val paidDuration       : Int,      // — время, в течение которого запись будет доступна только платным подписчикам VK Donut;
-    val placeholder        : String,   // — заглушка для пользователей, которые не оформили подписку VK Donut. Отображается вместо содержимого записи
-    val canPublishFreeCopy : Boolean,  // — можно ли открыть запись для всех пользователей, а не только подписчиков VK Donut;
-    val editMode           : String    // — информация о том, какие значения VK Donut можно изменить в записи. Возможные значения:
+    val isDonut            : Boolean = false, // — запись доступна только платным подписчикам VK Donut;
+    val paidDuration       : Int = 0,         // — время, в течение которого запись будет доступна только платным подписчикам VK Donut;
+    val placeholder        : String = "",     // — заглушка для пользователей, которые не оформили подписку VK Donut. Отображается вместо содержимого записи
+    val canPublishFreeCopy : Boolean = false, // — можно ли открыть запись для всех пользователей, а не только подписчиков VK Donut;
+    val editMode           : String = "all"   // — информация о том, какие значения VK Donut можно изменить в записи. Возможные значения:
                      //all — всю информацию о VK Donut.
                      //duration — время, в течение которого запись будет доступна только платным подписчикам VK Donut.
 )
@@ -81,8 +72,8 @@ data class VkDonut(
  * информация о репостах записи («Рассказать друзьям»)
  */
 data class Reposts(
-    val count        : Int,
-    val userReposted : Boolean
+    val count        : Int = 0,
+    val userReposted : Boolean = false
 )
 {
 
@@ -93,10 +84,10 @@ data class Reposts(
  * информация о лайках к записи
  */
 data class Likes(
-    val count      : Int,
-    val userLikes  : Boolean,
-    val canLike    : Boolean,
-    val canPublish : Boolean
+    val count      : Int = 0,
+    val userLikes  : Boolean = false,
+    val canLike    : Boolean = false,
+    val canPublish : Boolean = false
 )
 {
     
@@ -109,11 +100,11 @@ data class Likes(
  */
 
 data class CommentsDesc(
-    val count         : Int,
-    val canPost       : Boolean,
-    val groupsCanPost : Boolean,
-    val canClose      : Boolean,
-    val canOpen       : Boolean
+    val count         : Int = 0,
+    val canPost       : Boolean = false,
+    val groupsCanPost : Boolean = false,
+    val canClose      : Boolean = false,
+    val canOpen       : Boolean = false
 ){
 
 }
@@ -124,10 +115,10 @@ data class CommentsDesc(
  * источник материала
  */
 data class Copyright(
-    val id   : Int,
-    val link : String,
-    val name : String,
-    val type : String,
+    val id   : Int = 0,
+    val link : String = "",
+    val name : String = "",
+    val type : String = "",
 ){
 
 }
