@@ -21,8 +21,6 @@ class WallServiceTest {
         assertNotNull(fountPost1)
         assertNotNull(fountPost2)
         assertEquals(fountPost1!!.text, "new text1")
-        assertEquals(fountPost2!!.text, "new text2")
+        assertEquals(fountPost2!!.text, "new text3")
     }
-
-
 }
