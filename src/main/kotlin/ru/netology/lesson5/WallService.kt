@@ -1,5 +1,6 @@
 package ru.netology.lesson5
 
+import ru.netology.lesson5.Post
 import java.util.concurrent.atomic.AtomicInteger
 
 /**

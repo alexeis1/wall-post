@@ -31,10 +31,7 @@ data class Post(
     val isFavorite     : Boolean = false,     //true, если объект добавлен в закладки у текущего пользователя.
     val donut          : VkDonut = VkDonut(), //информация о записи VK Donut:
     val postponedId    : Int = 0              //идентификатор отложенной записи. Это поле возвращается тогда, когда запись стояла на таймере.
-) {
-
-
-}
+)
 
 /**
  * Description SourceType
@@ -62,9 +59,6 @@ data class VkDonut(
                      //all — всю информацию о VK Donut.
                      //duration — время, в течение которого запись будет доступна только платным подписчикам VK Donut.
 )
-{
-
-}
 
 /**
  * Description Reposts

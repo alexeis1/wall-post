@@ -1,6 +1,5 @@
 package ru.netology.lesson5
 
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Test
 
